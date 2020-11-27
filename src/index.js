@@ -1,17 +1,29 @@
-import React from 'react';
+import React , {useEffect, useState}from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import addressServices from './services/addressServices'
+const App  = () => {
+  const [regions, setRegions] = useState(['',])
+  const [provinces, setProvinces] = useState(['',])
+  const [cities, setCities] = useState(['',])
+  useEffect(() => {
+    const getAddress = async() => {
+      const regionData = await addressServices.getRegions();
+      const provinceData = await addressServices.getProvinces();
+      const cityData = await addressServices.getCities();
+      setRegions(regions.concat(regionData));
+      setProvinces(provinces.concat(provinceData))
+      setCities(cities.concat(cityData))
+    }
+    getAddress()
+  },[])
+  return(
+    <div>
+      <h1>Wew</h1>
+      {/* {location.map(location => <h1>{location.region_name}</h1>)} */}
+    </div>
+  )
+}
+ReactDOM.render( <App />, document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
