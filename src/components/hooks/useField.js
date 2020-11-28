@@ -1,16 +1,15 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 
-
-
-const useField = type => {
-    const [value, setValue] = ('')
-
+const useField = (type) => {
+    const [value, setValue] = useState('')
     const onChange = (event) => setValue(event.target.value)
     // const filter
     return{
         type,
         value,
         onChange,
-        // filter,
+        
     }
 }
+
+export default useField;    

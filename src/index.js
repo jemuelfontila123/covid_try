@@ -2,6 +2,7 @@ import React , {useEffect, useState}from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import addressServices from './services/addressServices'
+import UserRegister from './components/user/UserRegister'
 const App  = () => {
   const [regions, setRegions] = useState(['',])
   const [provinces, setProvinces] = useState(['',])
@@ -17,10 +18,11 @@ const App  = () => {
     }
     getAddress()
   },[])
+  // console.log(provinces)
   return(
     <div>
-      <h1>Wew</h1>
-      {/* {location.map(location => <h1>{location.region_name}</h1>)} */}
+      
+      <UserRegister regions={regions} provinces={provinces} cities={cities}/>
     </div>
   )
 }
