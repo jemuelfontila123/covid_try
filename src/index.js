@@ -1,28 +1,32 @@
-import React , {useEffect, useState}from 'react';
+import React , {useEffect, useState, useReducer}from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import addressServices from './services/addressServices'
-import UserRegister from './components/user/UserRegister'
+import UserRegister from './components/UserRegister'
+import regionsReducer from './reducer/regionsReducer'
+// const RegionContext = React.createContext();
+// const ProvinceContext = React.createContext();
+// const CityContext = React.createContext();
 const App  = () => {
-  const [regions, setRegions] = useState(['',])
-  const [provinces, setProvinces] = useState(['',])
-  const [cities, setCities] = useState(['',])
+  const [regions, dispatch] = useReducer(regionsReducer, [])
+  // const [provinces, dispatch] = useState([])
+  // const [cities, dispatch] = useState([])
   useEffect(() => {
     const getAddress = async() => {
       const regionData = await addressServices.getRegions();
-      const provinceData = await addressServices.getProvinces();
-      const cityData = await addressServices.getCities();
-      setRegions(regions.concat(regionData));
-      setProvinces(provinces.concat(provinceData))
-      setCities(cities.concat(cityData))
+      dispatch({type:'setRegions', regions:regionData})
+      // const provinceData = await addressServices.getProvinces();
+      // const cityData = await addressServices.getCities();
+      // setRegions(regions.concat(regionData));
+      // setProvinces(provinces.concat(provinceData))
+      // setCities(cities.concat(cityData))
     }
     getAddress()
   },[])
-  // console.log(provinces)
+  console.log(regions)
   return(
     <div>
-      
-      <UserRegister regions={regions} provinces={provinces} cities={cities}/>
+      {/* <UserRegister regions={regions} provinces={provinces} cities={cities}/> */}
     </div>
   )
 }
